@@ -5,19 +5,32 @@ import threading
 
 import worker
 
+
 def choise_word(words: list) -> str:
     max = len(words) - 1
     rnd = random.randint(0, max)
     return words[rnd]
+
 
 score = 0
 remaining_sec = 10
 words = [
     'apple',
     'banana',
+    'cherry',
     'grape',
+    'kiwi',
+    'lime',
+    'lemon',
+    'mandarin',
     'melon',
     'orange',
+    'pear',
+    'persimmon',
+    'plum',
+    'strawberry',
+    'vine',
+    'watermelon'
 ]
 
 
@@ -32,7 +45,7 @@ textRemainingSec = canvas.create_text(
     5, 25, text=f"time :{remaining_sec}", anchor="nw", font=('Courier', 12), fill="#333")
 
 
-def countdown(count :int):
+def countdown(count: int):
     global remaining_sec
     remaining_sec = count
 
@@ -59,10 +72,13 @@ canvas.bind("<1>", lambda event: canvas.focus_set())
 
 def hanadleKeyInput(event):
     global word, score
-    word = word[1:]
-    if len(word) == 0:
-        word = choise_word(words)
-    score += 1
+
+    if word[0] == event.char:
+        word = word[1:]
+        score += 1
+        if len(word) == 0:
+            word = choise_word(words)
+    
     # update ui
     canvas.itemconfigure(textTypingTarget, text=f"{word}")
     canvas.itemconfigure(textScore, text=f"score:{score}")
