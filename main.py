@@ -91,7 +91,6 @@ canvas.focus_set()
 
 # refresh UI by the main thread. the remaining_sec is updated by the worker thread.
 def refresher():
-    print("called refresher")
     canvas.itemconfigure(textRemainingSec, text=f"score:{remaining_sec}")
     root.after(1000, refresher)
 
